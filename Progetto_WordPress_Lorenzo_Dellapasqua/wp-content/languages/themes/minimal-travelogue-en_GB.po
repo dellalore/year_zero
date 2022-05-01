@@ -1,0 +1,44 @@
+# Translation of Themes - Minimal Travelogue in English (UK)
+# This file is distributed under the same license as the Themes - Minimal Travelogue package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-09-08 14:45:37+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: en_GB\n"
+"Project-Id-Version: Themes - Minimal Travelogue\n"
+
+#. Description of the theme
+msgid "Minimal Travelogue is a clean and modern WordPress Child Theme of Galway Lite. The theme was designed with the “mobile first” design, meaning it was designed for mobile from the beginning and was adapted for bigger screen afterward. This result in a beautiful experience for the users, on all devices."
+msgstr "Minimal Travelogue is a clean and modern WordPress child theme of Galway Lite. The theme was designed with the “mobile first” design, meaning it was designed for mobile from the beginning, and was adapted for bigger screens afterwards. This results in a beautiful experience for users, on all devices."
+
+#. Theme Name of the theme
+msgid "Minimal Travelogue"
+msgstr "Minimal Travelogue"
+
+#: inc/customizer/core/default.php:42
+msgid "Copyright All right reserved"
+msgstr "Copyright. All rights reserved"
+
+#: inc/customizer/core/default.php:35
+msgid "Continue Reading"
+msgstr "Continue Reading"
+
+#: inc/customizer/core/default.php:29
+msgid "Read More"
+msgstr "Read More"
+
+#: header.php:153
+msgid "Primary Menu"
+msgstr "Primary Menu"
+
+#: header.php:60
+msgid "Skip to content"
+msgstr "Skip to content"
+
+#. Author of the theme
+msgid "Madhukar Subedi"
+msgstr "Madhukar Subedi"

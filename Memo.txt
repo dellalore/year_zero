@@ -1,0 +1,9 @@
+_________________________________
+#################################
+# This repository will contain	#
+# programming projects.		#
+# In order to represent 	#
+# my way of writing code	#
+#################################
+
+Repository 2022.
