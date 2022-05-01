@@ -1,0 +1,289 @@
+--SQL---------------------------------------------------------------
+DB = Tabella.DATA == [ data * structure ]
+	-2.DB.types: [relazionale | NON.relazionale]
+		-DB.rel == confronti.operazioni
+		-DB.NOT.rel == raccolta.dati
+DBMS = SW getione ==
+	tab.data + Management.System 
+	*[memorizzare|manipolare|ricercare]
+2Type:[ file.based | SV.based ]
+	-file.b == DBMS produce file contiene (dati && struct)
+	-SV.b == DBMS gestisce in modo autonomo/transparent file necessari
+
+	*Architetto.DB [big.DB | performance | problems]
+		*progettista == define.Fields
+	*UserDB == popola il DB con i dati *rubrica
+		*User == work.on.record
+
+DATI = memoriccati in contenitore[Tabella] *Struttural.concept NOT.Graphic
+	-TAB 	== contenitore dati omogenei
+		== struct in fields(campi)
+			-FIELD == divide type.data esplicit
+			*Vincoli == limitano errori iserimento dati
+				*type_data | parameters > <= X
+			*convenzione minuscole_tutto
+			*keyID nome similare
+	*Mysql => 1.file * 1.tab == PROBLEMA
+	*QUERY > scorrere tutte le righe
+
+	-RECORD = 1.row.data
+	
+	       "campo=col" FIELDS
+		_________________________
+    "record=row"|'value'|	|	|
+		_________________________
+		|	|	|	|
+		_________________________
+		|	|	|	|
+		_________________________
+
+____________________________________________________________________
+CREO DB -> 	nome(univoco),
+		confronto(charset)=*lang ERROR.DB se transfer
+			(ricodifica data -> chaghe lang.SV)
+			-1B=1char OR Unicode-> 2B=1char
+			//versatilita' lang VS performance.Byte
+
+	crea TAB -> new Tab -> col/Add.col
+		text == max, void,
+		sign = 1Bsegno, doublerange
+		null = special value
+
+*LINUX VS WIN == M vs m maiuscole, minuscole
+____________________________________________________________________
+--PRIMARY_KEY-------------------------------------------------------
+ P.K 	== insieme.campi (1, +')
+	== identify.univocal.record **id *id_terminal *id_user
+	**vincolo implicit == 
+		| fields <> null 
+		| value non duplicato
+		| required 1 volta
+		| 1 sola P.K * Tab
+	== identify comando query
+	== base.relazione tra tabelle. separano dati.complex in Tabs
+RelazioniDB 3 types:
+	** 	relazione 1:N == 1recordTab1:N.recordsTab2  #import value in altra Tab
+		rel. 1:1 == legame diretto
+
+			**BIG.DATA non usano queste relazioni, too oneroso 'MongoDB *BIG.D'
+	== id-progressivo
+	== id -> num == 1.ciclo.clock //IF str +'cicli && 1000volte meglio num
+	== Key import == ricostruire il dato esportando il value
+	== p.k priority fast per il system DBMS
+____________________________________________________________________
+--OP----------------------------------------------------------------
+AND = t.t-t, t.f.f, f.f-f
+OR  = t.t-t, t.f.t, f.f-f
+NOT = t-f, f-t
+NAND = t.t-f, t.f.t, f.f-t
+NOR = t.t-f, t.f.f, f.f-t
+XOR = t.t-f, t.f.t, f.f-f
+XNOR = t.t-t, t.f.f, f.f-t
+	GERARCHIA: () > AND > OR
+____________________________________________________________________
+QUERY SPECIFICHE [delete, insert, update]
+--DELETE------------------------------------------------------------
+#buchi tab, id_progessivo, FLAG.file -> srink(compatta == delete) 
+	#non elimina davvero -> Esegue.cancellazione.logica
+	**ctrl-z == impossible
+	*Best practice == backup notturno SV poi lavoro sulle query
+
+DELETE #rischio cancellare DB intero || often use SELECT poi DELETE as query
+FROM tab
+WHERE <criterio>
+//order by == eliminazione in sequenza specifica
+
+DTS data transportation.system == transazioni prelievo&&update.conto
+____________________________________________________________________
+--MODIFICA_UPDATE---------------------------------------------------
+UPDATE tab
+SET <campo>=<value>, <campo>=<value>, <campo>=<value> ... #cs cambia
+WHERE <criterio>
+____________________________________________________________________
+--INSERIMENTO-------------------------------------------------------
+INSERT INTO <tab> (field,field,...)
+VALUES('num','str',...)
+
+*id void -> automatico
+
+____________________________________________________________________
+--INNER JOIN _ RELAZIONI--------------------------------------------
+INNER JOIN <tab> ON #chiede corrispondenza su campi ER tab vicina
+
+PRODOTTO CARTESIANO
+... FROM <tab>, <tab2> == records*records == brokeSQLsession
+
+convenzione obbligatoria se omonomia in tab2
+<tab>.<field>
+
+***JOIN CROSS DB +' AVANZATA
+____________________________________________________________________
+--diagram E/R == show relations among DB
+	A<-->B<-->C
+SELECT *, fields...
+FROM <tabA>	INNER JOIN <tabB> ON B.k = A.k(E/R)
+		INNER JOIN <tabC> ON C.k = B.k(E/R)
+
+FROM <tabC>	INNER JOIN <tabC> ON C.k = B.k(E/R)
+		INNER JOIN <tabB> ON B.k = A.k(E/R)
+
+*inner join == non moltiplica record BEST.PRACTICE,
+	ma non posso usarlo a caso, cancella records
+
+DISTINCT == rimuove record dublicati tra 'fields' selected
+
+____________________________________________________________________
+--CONNECTION--------------------------------------------------------
+XAMP->MYsql | Heidy = new -> ip.SV, port3306, host/ip 127.2.2.1
+Type.connession| rete.TCP.IP, cryptoSSH, 
+DBMS -> SV.remoto.'aruba' -> php.myadmin
+library
+port 3306
+root client/SV == process load work, zip file I/O, alleggerisce scheda rete
+____________________________________________________________________
+####################################################################
+####################################################################
+####################################################################
+____________________________________________________________________
+--QUERY-------------------------------------------------------------
+SQL == structured query language
+QUERY 3 type == interazioni.con.DB -operazioni.2type [ricerca, manipolazione]
+	1-select [read | search ]
+	2-comando[modify.data(add | modify | delete)]
+	3-manipolazione struct
+	-1.Q.selezione == cercano|presentano DATI && filtano records|fields
+	-Struct rigida
+	PROCESSO: [ 1.identifica.Tab | 2.identifica.Field 
+		| *3.Add.criterio | *4.Add.order | 5.backup|ripristino ]
+		5.*ridondanza && distribuzione 2.type:
+				-bk.inline/a caldo == real.time.SV.mirror
+				-bk.temporizzato == evert.tot.time
+					*ifts.sql, .bak == bk.SV
+	-CLAUSOLE INDIPENDENTI
+		(SELECT * == *debug && mlt pesante)
+	
+PREDICATO.LOGICO == 
+	-exp.algeb x OP y = T | 5 = 5 -> T
+		x,y qualsiasi type
+		Op. = /=('<>') > < <=
+		result = T.F
+	-filtraggio.dati -> Prog.logic (difficile)
+es: P.L. -> field.age > 18 -> T=query ELSE F=delete	
+	
+**file/salva || load/folder_queries
+
+--QUERY-------------------------------------------------------------
+____________________________________________________________________
+#commenti
+SELECT DISTINCT * || <table>.<field>, <table2>.<field> 	#order ROW.PRINT.FIELDS | 'field/s'
+FROM <table_iniziale>
+-INNER JOIN <table_adiacente> ON <field_key 1 OR 2> = <field_key 1 OR 2>
+-INNER JOIN <table_adiacente> ON <field_key 1 OR 2> = <field_key 1 OR 2>
+WHERE <criterio> NOT AND NOT OR = > <  'record/s'
+-ORDER BY <table>.<field> DESC || ASC.default  #priority == fastest order
+____________________________________________________________________
+#gerachia
+
+SELECT *
+FROM prenotazioni
+WHERE camera = 15 AND (caparra>50 OR importo<200)
+ORDER BY importo;
+____________________________________________________________________
+# sel.all.field -> tab.citta -> order citta asc
+SELECT *
+FROM citta
+ORDER BY citta ASC
+____________________________________________________________________
+# 
+SELECT nome,cognome
+FROM clienti
+ORDER BY dataNascita ASC;
+____________________________________________________________________
+#
+SELECT arrivo 
+FROM prenotazioni
+WHERE tipo_struttura = '2 Stelle'
+ORDER BY arrivo DESC;
+____________________________________________________________________
+#
+SELECT DISTINCT clienti.cognome, clienti.nome, prenotazioni.tipo_struttura 
+FROM clienti
+INNER JOIN prenotazioni ON prenotazioni.cliente = clienti.id_cliente
+WHERE prenotazioni.tipo_struttura = '2 Stelle'
+ORDER BY clienti.cognome desc
+____________________________________________________________________
+# tt.fields -> tab.regioni -> area_geografica = 'Sud'
+SELECT * FROM regioni
+WHERE area_geografica = 'Sud';
+____________________________________________________________________
+#seleziona 2 campi da tab.Esempio 1 -> SE fieldsurname = 'str'
+SELECT nome, surname
+FROM esempio1
+WHERE surname = 'marluzzo'
+____________________________________________________________________
+# sel.all fields -> tab.prenotazioni -> SE fieldimporto>150 && field caparra<50
+SELECT * FROM prenotazioni
+WHERE importo>150 AND caparra<50;
+____________________________________________________________________
+# sel.all.fields -> tab.prenotazioni -> SE fieldimporto>200
+SELECT * FROM prenotazioni
+WHERE importo > 200;
+____________________________________________________________________
+#
+#trovate data arrivo tt prenotazioni clienti che abitano in citta bologna
+#prenotazini clienti di bologna
+# citta.nome_citta -> id_citta=>clienti.citta -> clienti.id_cliente=> prenotazioni.cliente -> prenotazioni.arrivo
+# da più recente a piu vecchia
+#SELECT *
+SELECT DISTINCT citta.citta, clienti.cognome, clienti.nome, prenotazioni.arrivo 
+FROM prenotazioni
+INNER JOIN clienti ON clienti.id_cliente = prenotazioni.cliente
+INNER JOIN citta ON citta.id_citta = clienti.citta
+WHERE citta.citta = 'bologna'
+ORDER BY arrivo desc
+____________________________________________________________________
+#TROVA  nome &cognome tt clienti prenotato 2 stelle
+	# DISTINCT rimuove record dublicati tra 'fields' selected
+
+SELECT DISTINCT clienti.cognome, clienti.nome, prenotazioni.tipo_struttura 
+FROM prenotazioni
+INNER JOIN clienti ON clienti.id_cliente = prenotazioni.cliente
+WHERE prenotazioni.tipo_struttura = '2 Stelle'
+ORDER BY clienti.cognome desc
+
+____________________________________________________________________
+#
+#trova camera caparra importo tipo struttura, nome congnome
+#per prenotazioni con clienti cocognome = bianchi
+
+SELECT prenotazioni.camera, prenotazioni.caparra, prenotazioni.importo, prenotazioni.tipo_struttura, clienti.cognome, clienti.nome
+#SELECT *
+FROM prenotazioni
+INNER JOIN clienti ON clienti.ID_cliente = prenotazioni.cliente
+WHERE clienti.cognome = 'bianchi'
+ORDER BY clienti.nome ASC
+_______________________________________________________________
+_______________________________________________________________
+/*trova n_prenotazioni. importo tot, importo avg PER OGNI TIPO STRUTTURA*/
+SELECT SUM(prenotazioni.importo) AS somma_importo, AVG(prenotazioni.importo) AS avg_importo, prenotazioni.tipo_struttura, COUNT(*) AS n_prenotazioni
+FROM  prenotazioni
+GROUP BY prenotazioni.tipo_struttura /*campo ripetuto in SELECT raggruppa dati per uno/+' FIELDS*/
+_____________________________________________________________________
+/* N.prenotazioni per regione*/
+SELECT regioni.regione, COUNT(*) AS n_prenotazioni
+FROM prenotazioni INNER JOIN
+	clienti ON prenotazioni.cliente = clienti.ID_cliente INNER JOIN
+	citta ON clienti.citta = citta.id_citta INNER JOIN
+	regioni ON citta.regione = regioni.ID_regione
+WHERE        (prenotazioni.importo > 200)
+GROUP BY regioni.regione
+ORDER BY regioni.regione
+_____________________________________________________________
+/* tt prenotazioni clienti, citta=rimini, riccione, bologna e hanno prenotato 3,4 stelle*/
+SELECT */*campi da inserire anche nel group by A, B, C*/
+FROM prenotazioni
+INNER JOIN clienti ON clienti.ID_cliente = prenotazioni.cliente
+INNER JOIN citta ON citta.id_citta = clienti.citta
+WHERE prenotazioni.tipo_struttura IN ('3 Stelle', '4 Stelle') AND citta.citta IN ('rimini', 'bologna','riccione')
+/*GROUP BY citta.citta, prenotazioni.tipo_struttura*/
+

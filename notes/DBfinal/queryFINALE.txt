@@ -1,0 +1,49 @@
+#########################################################
+RIPASSO SQL
+
+#########################################################
+//01
+/*01	PRINT all regions  WHERE area_geografica = sud*/
+SELECT regioni.regione
+FROM Regioni
+WHERE regioni.area_geografica = "sud"
+#########################################################
+//02, 03
+/*	03 print prenotazioni || where importo > 200 && caparra <50 	*/
+SELECT prenotazioni.ID_prenotazione
+FROM Prenotazioni
+WHERE prenotazioni.importo > 150 AND prenotazioni.caparra < 50
+#########################################################
+//04
+/*	04 print nomi, cognomi clienti, ordinati per eta' 	*/
+SELECT clienti.nome, clienti.cognome
+FROM clienti
+ORDER BY clienti.cognome DESC
+#########################################################
+//05
+/*	05 print date-arrivo || WHERE hotel = 2 stelle || order da + recente 	*/
+SELECT prenotazioni.arrivo
+FROM prenotazioni
+WHERE prenotazioni.tipo_struttura = "2 stelle"
+ORDER BY prenotazioni.arrivo desc
+#########################################################
+//06
+#########################################################
+//07
+#########################################################
+//08
+#########################################################
+//09
+#########################################################
+//10
+#########################################################
+//11
+#########################################################
+//12
+#########################################################
+//13
+#########################################################
+//14
+#########################################################
+//15
+#########################################################
