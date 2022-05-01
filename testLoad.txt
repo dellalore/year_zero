@@ -1,3 +1,4 @@
 1 crea cartella
 2 GitHub Dk -> New Repo-local path-folder
-3 update - copy.file and then update from GitHub Dk
+3 update commit git	
+4 update - copy.file and then update from GitHub Dk
